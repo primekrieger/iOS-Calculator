@@ -33,7 +33,6 @@
     if (!input)    // Check whether the NSMutableString to be set as label text has been initialized or not
     {
         input = [[NSMutableString alloc] initWithString:[sender currentTitle]];    // Initialize the string with the tapped button text
-        inputLabel.textAlignment = NSTextAlignmentRight;    // Set text alignment to left
     }
     
     else
