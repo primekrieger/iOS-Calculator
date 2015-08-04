@@ -27,8 +27,8 @@
 - (IBAction)digitTap:(UIButton *)sender;
 - (IBAction)operatorTap:(UIButton *)sender;
 - (float)calculate;
-- (void)clear;
-- (void)euqals;
+- (IBAction)clear;
+- (IBAction)euqals;
 
 @end
 
