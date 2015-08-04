@@ -100,4 +100,19 @@
     }
 }
 
+- (void)clear
+{
+    num1 = 0;
+    num2 = 0;
+    currentNum = &num1;
+    
+    resultLabel.text = @"0";
+    inputLabel.text = @"0";
+}
+- (void)euqals
+{
+    inputLabel.text = [NSString stringWithFormat:@"%g", result];
+    resultLabel.text = @"Answer";
+}
+
 @end
