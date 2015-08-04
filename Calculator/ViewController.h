@@ -17,8 +17,8 @@
     float num1;
     float num2;
     float result;
-    float *currentNum;
-    unichar currentOperator;
+    float *currentNum;  // Pointer to whether the number being entered is first or the second operand
+    unichar currentOperator;    // Holds the currently selected operator
 }
 
 - (IBAction)digitTap:(UIButton *)sender;

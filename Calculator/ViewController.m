@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    currentNum = &num1;
+    currentNum = &num1; // Sets the pointer to point to first operand
     
 }
 
@@ -28,39 +28,36 @@
 
 - (IBAction)digitTap:(UIButton *)sender
 {
-    *currentNum = (*currentNum * 10) + [[sender currentTitle] intValue];
+    *currentNum = (*currentNum * 10) + [[sender currentTitle] intValue];    // Updates input value in real time according to no. of times a digit is tapped
     
-    if (currentNum == &num1)
+    if (currentNum == &num1)    // Operations for first operand
     {
         result = num1;
         inputLabel.text = [NSString stringWithFormat:@"%g", num1];
     }
-    else
+    else    // Operations for second operand
     {
         result = [self calculate];
         inputLabel.text = [NSString stringWithFormat:@"%g%c%g", num1, currentOperator, num2];
     }
     
     resultLabel.text = [NSString stringWithFormat:@"%g", result];
-    
-    
-    
 
 }
 
 - (IBAction)operatorTap:(UIButton *)sender
 {
     
-    currentOperator = [[sender currentTitle] characterAtIndex:0];
+    currentOperator = [[sender currentTitle] characterAtIndex:0];   // Gets the value of operator tapped
     
     inputLabel.text = [NSString stringWithFormat:@"%g%c", result, currentOperator];
 
-    num1 = result;
+    num1 = result;  // Stores the result of operation in first operand
     
     if (currentNum == &num1)
-        currentNum = &num2;
+        currentNum = &num2; // Set the current operand to second number
     else
-        num2 = 0;
+        num2 = 0;   // Clears the value in second operand
     
 }
 
