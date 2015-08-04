@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     currentNum = &num1;
-    
+    input = [[NSMutableString alloc] init];
     
 }
 
@@ -30,44 +30,38 @@
 - (IBAction)digitTap:(UIButton *)sender
 {
     *currentNum = (*currentNum * 10) + [[sender currentTitle] intValue];
-    
-        
-    if (!input)    // Check whether the NSMutableString to be set as label text has been initialized or not
-    {
-        input = [[NSMutableString alloc] initWithString:[sender currentTitle]];    // Initialize the string with the tapped button text
-    }
-    
-    else
-    {
-        [input appendString:[sender currentTitle]];    // Append the tapped button text to current string
-    }
+
+        //[input appendString:[sender currentTitle]];    // Append the tapped button text to current string
     
     
     if (currentNum == &num2)
     {
         result = [self calculate];
         
+        if (commitFlag) {
+            [input appendFormat:@"%g%c", temp, currentOperator];
+            commitFlag = 0;
+        }
+        
+        
     }
     else
     {
         result = num1;
     }
+    
     resultLabel.text = [NSString stringWithFormat:@"%g", result];
     
-    inputLabel.text = input;
-    operatorAppendFlag = 1;
+    inputLabel.text = [NSString stringWithFormat:@"%@%g", input, *currentNum];
 }
 
 - (IBAction)operatorTap:(UIButton *)sender
 {
     
-    if (operatorAppendFlag)
-    {
         currentOperator = [[sender currentTitle] characterAtIndex:0];
-        [input appendString:[sender currentTitle]];
-        inputLabel.text = input;
-        operatorAppendFlag = 0;
     
+        inputLabel.text = [NSString stringWithFormat:@"%@%g%c", input, *currentNum, currentOperator];
+        temp = *currentNum;
         if (currentNum == &num2)
         {
             num1 = result;
@@ -78,7 +72,8 @@
         {
             currentNum = &num2;
         }
-    }
+    
+    commitFlag = 1;
     
 }
 
@@ -114,7 +109,6 @@
     input = nil;
     resultLabel.text = @"0";
     inputLabel.text = @"0";
-    operatorAppendFlag = 0;
 }
 - (IBAction)euqals
 {
