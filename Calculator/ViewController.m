@@ -18,7 +18,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     currentNum = &num1;
-    input = [[NSMutableString alloc] init];
     
 }
 
@@ -30,50 +29,38 @@
 - (IBAction)digitTap:(UIButton *)sender
 {
     *currentNum = (*currentNum * 10) + [[sender currentTitle] intValue];
-
-        //[input appendString:[sender currentTitle]];    // Append the tapped button text to current string
     
-    
-    if (currentNum == &num2)
+    if (currentNum == &num1)
     {
-        result = [self calculate];
-        
-        if (commitFlag) {
-            [input appendFormat:@"%g%c", temp, currentOperator];
-            commitFlag = 0;
-        }
-        
-        
+        result = num1;
+        inputLabel.text = [NSString stringWithFormat:@"%g", num1];
     }
     else
     {
-        result = num1;
+        result = [self calculate];
+        inputLabel.text = [NSString stringWithFormat:@"%g%c%g", num1, currentOperator, num2];
     }
     
     resultLabel.text = [NSString stringWithFormat:@"%g", result];
     
-    inputLabel.text = [NSString stringWithFormat:@"%@%g", input, *currentNum];
+    
+    
+
 }
 
 - (IBAction)operatorTap:(UIButton *)sender
 {
     
-        currentOperator = [[sender currentTitle] characterAtIndex:0];
+    currentOperator = [[sender currentTitle] characterAtIndex:0];
     
-        inputLabel.text = [NSString stringWithFormat:@"%@%g%c", input, *currentNum, currentOperator];
-        temp = *currentNum;
-        if (currentNum == &num2)
-        {
-            num1 = result;
-            num2 = 0;
-            resultLabel.text = [NSString stringWithFormat:@"%g", num1];
-        }
-        else
-        {
-            currentNum = &num2;
-        }
+    inputLabel.text = [NSString stringWithFormat:@"%g%c", result, currentOperator];
+
+    num1 = result;
     
-    commitFlag = 1;
+    if (currentNum == &num1)
+        currentNum = &num2;
+    else
+        num2 = 0;
     
 }
 
@@ -97,24 +84,25 @@
             break;
             
         default:
-            return -1;
+            return 0;
     }
 }
 
 - (IBAction)clear
 {
-    num1 = 0;
-    num2 = 0;
+    num1 = num2 = result = 0;
     currentNum = &num1;
-    input = nil;
     resultLabel.text = @"0";
     inputLabel.text = @"0";
 }
+
 - (IBAction)euqals
 {
-    [self clear];
     inputLabel.text = [NSString stringWithFormat:@"%g", result];
     resultLabel.text = @"Answer";
+    num1 = num2 = 0;
+    currentNum = &num1;
+    
 }
 
 @end

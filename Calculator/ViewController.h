@@ -14,13 +14,10 @@
     IBOutlet UILabel *inputLabel;
     IBOutlet UILabel *resultLabel;
     
-    NSMutableString *input;
     float num1;
     float num2;
-    float temp;
     float result;
     float *currentNum;
-    int commitFlag;
     unichar currentOperator;
 }
 
